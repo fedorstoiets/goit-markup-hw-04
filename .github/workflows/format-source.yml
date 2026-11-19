@@ -24,5 +24,6 @@ jobs:
           git add index.html css README.md
           if ! git diff --cached --quiet; then
             git commit -m "style: format homework 4 with Prettier"
+            git pull --rebase origin main
             git push
           fi
