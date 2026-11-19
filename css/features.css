@@ -20,5 +20,16 @@
   color: #434455;
 }
 
-.feature-icon-box {height: 112px; display: flex; justify-content: center; align-items: center; margin-bottom: 8px; background-color: #f4f4fd; border: 1px solid #8e8f99; border-radius: 4px;}
-.feature-icon {fill: #2e2f42;}
+.feature-icon-box {
+  height: 112px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 8px;
+  background-color: #f4f4fd;
+  border: 1px solid #8e8f99;
+  border-radius: 4px;
+}
+.feature-icon {
+  fill: #2e2f42;
+}
