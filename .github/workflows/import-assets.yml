@@ -1,0 +1,39 @@
+name: Import WebStudio image assets
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-assets.yml'
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download JPG assets and verify
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p images
+          for i in 1 2 3 4; do
+            curl -fLsS --retry 3 "https://raw.githubusercontent.com/fedorstoiets/goit-markup-hw-03/main/images/team-${i}.jpg" -o "images/team-${i}.jpg"
+          done
+          for i in 1 2 3 4 5 6; do
+            curl -fLsS --retry 3 "https://raw.githubusercontent.com/fedorstoiets/goit-markup-hw-03/main/images/portfolio-${i}.jpg" -o "images/portfolio-${i}.jpg"
+          done
+          curl -fLsS --retry 3 "https://raw.githubusercontent.com/Obolonska/goit-markup-hw-05/main/images/people-office.jpg" -o images/people-office.jpg
+          for f in images/*.jpg; do
+            test -s "$f"
+            file "$f" | grep -qi jpeg
+          done
+      - name: Commit image files
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images/*.jpg
+          if ! git diff --cached --quiet; then
+            git commit -m "assets: import HW3 photos and WebStudio hero JPG"
+            git push
+          fi
